@@ -18,6 +18,9 @@ const GamesList = () => {
                     <li className="py-6 flex justify-between " key={game.id}>
                         {game.name}
                         <div className="flex gap-2">
+                            <span className="mr-4 text-gray-600">
+                                Players {game.player_count} /  {game.max_players}
+                            </span>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleJoinGame(game.id)}>Join Game</button>
                             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleLeaveGame(game.id)}>Leave Game</button>
                         </div>
