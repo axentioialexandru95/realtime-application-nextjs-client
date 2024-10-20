@@ -1,9 +1,29 @@
 'use client'
 
 import { useGames } from "@/hooks/games"
+import { useEffect } from "react";
+import useEcho from "@/hooks/echo";
 
 const GamesList = () => {
-    const { games, error, isLoading, handleJoinGame, handleLeaveGame } = useGames()
+    const { games, error, isLoading, handleJoinGame, handleLeaveGame, updateGames } = useGames()
+
+    const echo = useEcho();
+
+    useEffect(() => {
+        if (echo) {
+            const channel = echo.channel('games')
+
+            channel.listen('GamesUpdated', (data) => {
+                updateGames(data.games)
+            })
+
+            return () => {
+                channel.stopListening('GamesUpdated')
+            }
+        }
+
+    }, [echo, updateGames])
+
     return (
         <div className="p-6">
 
